@@ -2,11 +2,12 @@
 	require"dbConnect.php";
 
 
-	$tendangnhap = "a"; // Thay đổi tên đăng nhập theo dữ liệu nhập vào
-$matkhau = "1"; // Thay đổi mật khẩu theo dữ liệu nhập vào
+// 	$tendangnhap = "a"; // Thay đổi tên đăng nhập theo dữ liệu nhập vào
+// $matkhau = "1"; // Thay đổi mật khẩu theo dữ liệu nhập vào
 
-// $tendangnhap = $_POST['tendangnhap'];
-// $matkhau = $_POST['matkhau'];
+
+$tendangnhap = $_GET['TenDangNhap'];
+$matkhau = $_GET['MatKhau'];
 
 // Truy vấn SELECT để lấy dữ liệu user và password
 $query = "SELECT tendangnhap, matkhau FROM user WHERE tendangnhap='$tendangnhap' AND matkhau='$matkhau'";
