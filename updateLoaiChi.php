@@ -3,9 +3,9 @@ require"dbConnect.php";
 
 	require"dbConnect.php";
 
-	$tendangnhap =$_POST['TenDangNhap'];
-	$maloaichi=$_POST['MaLoaiChi'];
-	$tenloaichi =$_POST['TenLoaiChi'];
+	$tendangnhap =$_GET['TenDangNhap'];
+	$maloaichi=$_GET['MaLoaiChi'];
+	$tenloaichi =$_GET['TenLoaiChi'];
 
 	$query="UPDATE `loaichi` SET `tenloaichi` = '$tenloaichi' WHERE `loaichi`.`maloaichi` = '$maloaichi' AND `loaichi`.`tendangnhap`='$tendangnhap' ";
 
