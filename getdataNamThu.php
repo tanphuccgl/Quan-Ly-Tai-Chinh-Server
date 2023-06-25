@@ -1,28 +1,31 @@
+
+
 <?php
 	require"dbConnect.php";
-	$tendangnhap = $_POST['TenDangNhap'];
+
+	
+	$tendangnhap = $_GET['TenDangNhap'];
 	$fisrt_day_of_year = date('Y-01-01');
 	$query = "SELECT * FROM khoanthu WHERE ngaythu >='$fisrt_day_of_year' AND ngaythu < '$fisrt_day_of_year' + INTERVAL 1 YEAR AND khoanthu.tendangnhap='".$tendangnhap."'";
-
-	$data = mysqli_query($connect,$query);
+	$result = $connect->query($query);
 	
-	class getdatauser{
-		function getdatauser($makhoanthu,$tenloaithu,$sotienthu,$ngaythu){
-			$this->MaKhoanThu=$makhoanthu;
-			$this->TenLoaiThu= $tenloaithu;
-			$this->SoTienThu= $sotienthu;
-			$this->NgayThu =$ngaythu;
+	
 
+
+	if (mysqli_num_rows($result) > 0) {
+		$users = array();
+	
+		while ($row = mysqli_fetch_assoc($result)) {
+			$users[] = $row;
 		}
-
-	}
-
-	$arraydatauser = array();
-	while ($row = mysqli_fetch_assoc($data)) {
-		array_push($arraydatauser,new getdatauser($row['makhoanthu'],$row['tenloaithu'],$row['sotienthu'],$row['ngaythu']));
+	
+		// Trả về dữ liệu dạng JSON
+		echo json_encode($users);
+	} else {
+		echo "Không có dữ liệu.";
 	}
 
 	
-	echo json_encode($arraydatauser);
+
 
  ?>

@@ -1,35 +1,36 @@
+
+
 <?php
 	require"dbConnect.php";
-	$tendangnhap = $_POST['TenDangNhap'];
-	
-	$ngaya =strtr($_POST['Ngaybd'],'/','-');
-	$ngayb =strtr($_POST['Ngaykt'],'/','-');
+
+	$tendangnhap = $_GET['TenDangNhap'];
+
+	$ngaya =strtr($_GET['Ngaybd'],'/','-');
+	$ngayb =strtr($_GET['Ngaykt'],'/','-');
 	$ngaybt = date("Y-m-d", strtotime($ngaya));
 	$ngaykt = date("Y-m-d", strtotime($ngayb));
 
 	
 	$query = "SELECT * FROM khoanchi WHERE khoanchi.ngaychi BETWEEN CAST('$ngaybt' AS DATE) AND CAST('$ngaykt' AS DATE) AND khoanchi.tendangnhap='".$tendangnhap."' ";
-
-
-	$data = mysqli_query($connect,$query);
+	$result = $connect->query($query);
 	
-	class getdatauser{
-		function getdatauser($makhoanchi,$tenloaichi,$sotienchi,$ngaychi){
-			$this->MaKhoanChi=$makhoanchi;
-			$this->TenLoaiChi= $tenloaichi;
-			$this->SoTienChi= $sotienchi;
-			$this->NgayChi =$ngaychi;
+	
 
+
+	if (mysqli_num_rows($result) > 0) {
+		$users = array();
+	
+		while ($row = mysqli_fetch_assoc($result)) {
+			$users[] = $row;
 		}
-
-	}
-
-	$arraydatauser = array();
-	while ($row = mysqli_fetch_assoc($data)) {
-		array_push($arraydatauser,new getdatauser($row['makhoanchi'],$row['tenloaichi'],$row['sotienchi'],$row['ngaychi']));
+	
+		// Trả về dữ liệu dạng JSON
+		echo json_encode($users);
+	} else {
+		echo "Không có dữ liệu.";
 	}
 
 	
-	echo json_encode($arraydatauser);
+
 
  ?>
