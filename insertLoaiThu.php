@@ -1,8 +1,10 @@
 <?php
 	require"dbConnect.php";
 
-	$tendangnhap ="minh";
-	$tenloaithu ="gia dinh" ;
+
+	$tendangnhap =$_GET['TenDangNhap'];
+	$tenloaithu =$_GET['TenLoaiThu'];
+
 
 	$query="INSERT INTO `loaithu` (`maloaithu`, `tenloaithu`, `tendangnhap`) VALUES (NULL, '".$tenloaithu."', '".$tendangnhap."');";
 
