@@ -3,12 +3,12 @@ require"dbConnect.php";
 
 	require"dbConnect.php";
 
-	$tendangnhap =$_POST['TenDangNhap'];
-	$makhoanchi=$_POST['MaKhoanChi'];
-	$tenloaichi =$_POST['TenLoaiChi'];
-	$sotienchi =$_POST['SoTienChi'];
+	$tendangnhap =$_GET['TenDangNhap'];
+	$makhoanchi=$_GET['MaKhoanChi'];
+	$tenloaichi =$_GET['TenLoaiChi'];
+	$sotienchi =$_GET['SoTienChi'];
 	
-	$a=$_POST['NgayChi'];
+	$a=$_GET['NgayChi'];
 	$ngay =strtr($a,'/','-');
 	$ngaychi = date("Y-m-d", strtotime($ngay));
 

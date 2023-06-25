@@ -1,26 +1,28 @@
-<?php
+ <?php
 require"dbConnect.php";
 	
-	$tendangnhap = $_POST['TenDangNhap'];
+	$tendangnhap =$_GET['TenDangNhap'];
 
 	$query = "SELECT * FROM `loaichi` WHERE loaichi.tendangnhap='".$tendangnhap."' ";
-	$data = mysqli_query($connect,$query);
+
+	$result = $connect->query($query);
 	
-	class getdataloaichi{
-		function getdataloaichi($maloaichi,$tenloaichi){
-			$this->MaLoaiChi=$maloaichi;
-			$this->TenLoaiChi=$tenloaichi;
+	
+
+
+	if (mysqli_num_rows($result) > 0) {
+		$users = array();
+	
+		while ($row = mysqli_fetch_assoc($result)) {
+			$users[] = $row;
 		}
-
-	}
-
-	$arraydataloaichi = array();
-	while ($row = mysqli_fetch_assoc($data)) {
-		array_push($arraydataloaichi, new getdataloaichi($row['maloaichi'],$row['tenloaichi']));
-	}
-
 	
-	echo json_encode($arraydataloaichi);
+		// Trả về dữ liệu dạng JSON
+		echo json_encode($users);
+	} else {
+		echo "Không có dữ liệu.";
+	}
+
 
 
  ?>

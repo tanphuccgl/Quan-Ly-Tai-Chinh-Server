@@ -1,8 +1,8 @@
 <?php
 require"dbConnect.php";
 
-	$makhoanchi =$_POST['MaKhoanChi'];
-	$tendangnhap =$_POST['TenDangNhap'];
+	$makhoanchi =$_GET['MaKhoanChi'];
+	$tendangnhap =$_GET['TenDangNhap'];
 
 	$query="DELETE FROM `khoanchi` WHERE `khoanchi`.`tendangnhap`='$tendangnhap' AND `khoanchi`.`makhoanchi` = '".$makhoanchi."'";
 	
