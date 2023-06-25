@@ -5,7 +5,7 @@
 		// echo "Định dạng mới: " .$dinh_dang_moi."<br>";
 
  	require"dbConnect.php";
-	$tendangnhap = $_POST['TenDangNhap'];
+	$tendangnhap = $_GET['TenDangNhap'];
 	$tongthu=0;
 	$tongchi=0;
 	$fisrt_day_of_moth = date('Y-m-01');
@@ -31,6 +31,7 @@
 	}
 	$sodu=$tongthu-$tongchi;
 	array_push($arraydatauser,new getdatauser($sodu));
+	
 
-	echo json_encode($arraydatauser);
+	echo json_encode($sodu);
        ?>
