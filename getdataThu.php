@@ -1,27 +1,28 @@
 <?php
 	require"dbConnect.php";
-	$tendangnhap = $_POST['TenDangNhap'];
-	$query = "SELECT makhoanthu,tendangnhap,tenloaithu,sotienthu,ngaythu FROM khoanthu WHERE khoanthu.tendangnhap='".$tendangnhap."' ";
-	$data = mysqli_query($connect,$query);
-	
-	class getdatauser{
-		function getdatauser($makhoanthu,$tenloaithu,$sotienthu,$ngaythu){
-			$this->MaKhoanThu=$makhoanthu;
-			$this->TenLoaiThu= $tenloaithu;
-			$this->SoTienThu= $sotienthu;
-			$this->NgayThu =$ngaythu;
 
+	
+	$tendangnhap = $_GET['TenDangNhap'];
+	$query = "SELECT makhoanthu,tendangnhap,tenloaithu,sotienthu,ngaythu FROM khoanthu WHERE khoanthu.tendangnhap='$tendangnhap' ";
+	$result = $connect->query($query);
+	
+	
+
+
+	if (mysqli_num_rows($result) > 0) {
+		$users = array();
+	
+		while ($row = mysqli_fetch_assoc($result)) {
+			$users[] = $row;
 		}
-
-	}
-
-	$arraydatauser = array();
-	while ($row = mysqli_fetch_assoc($data)) {
-		$ngaythu = date("d-m-Y", strtotime($row['ngaythu']));
-		array_push($arraydatauser,new getdatauser($row['makhoanthu'],$row['tenloaithu'],$row['sotienthu'],$ngaythu));
+	
+		// Trả về dữ liệu dạng JSON
+		echo json_encode($users);
+	} else {
+		echo "Không có dữ liệu.";
 	}
 
 	
-	echo json_encode($arraydatauser);
+
 
  ?>
